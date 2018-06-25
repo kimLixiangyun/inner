@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>websql测试</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var db=openDatabase('demo','1.0','for test',1024*1024*10,null);
+			db.transaction(function(tx){
+				tx.executeSql('create table if not exists t_user(u_id int primary key,u_name varchar(50),u_sex varchar(4),u_age number)');
+				tx.executeSql("insert into t_user(u_id,u_name,u_sex,u_age) values(1,'heh','女',24)");
+			})
+		</script>
+	</body>
+</html>

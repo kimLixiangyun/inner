@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+		<style type="text/css">
+			html,
+			body,
+			p,
+			ul {
+				margin: 0px;
+				padding: 0px;
+				height: 100%;
+			}
+			
+			
+			.nav-side{
+				background: #191919;
+			    box-shadow: 2px 2px 6px rgba(0,0,0,.3);
+			    display: block;
+			    font-size: 16px;
+			    font-weight: 400;
+			    height: 100%;
+			    right: 0;
+			    position: fixed;
+			    overflow: auto;
+			    transition: transform .3s;
+			    top: 62px;
+			    width: 256px;
+			    z-index: 100;
+			    overflow: hidden;
+			    color: #cecece;
+			}
+			
+			.nav-tit {
+				background: #FF5722;
+				border-bottom: 1px solid #FF7043;
+				color: #FAFAFA;
+				font-size: 24px;
+				font-weight: 700;
+				line-height: 32px;
+				padding: 15px 20px 14px;
+				cursor: pointer;
+			}
+			
+			
+			
+			.nav-side-ul {
+				height: 100%;
+				width: 240px;
+				background-color: #191919;
+			}
+			
+			.nav-side-ul>li {
+				list-style: none;
+				background-color: #212121;
+				
+			}
+			.nav-inner-tit{
+				background-color: #212121;
+				font-size: 20px;
+    			padding: 6px 0;
+    			cursor: pointer;
+    			padding-left: 20px;
+			}
+			.nav-side-inner-ul {
+				background-color: #191919;
+				margin-left: -20px;
+				padding-left: 20px;
+				padding-top: 10px;
+				padding-bottom: 10px;
+				display: none;
+			}
+			
+			.nav-side-inner-ul{
+				list-style: none;
+			}
+			.nav-inner-item{
+				list-style: none;
+			    cursor: pointer;
+			    padding: 2px 0;
+			    word-wrap: normal;
+			    text-overflow: ellipsis;
+			    width: 220px;
+			    white-space: nowrap;
+			    overflow: hidden;
+			}
+			.outer-container,.content {
+			    width: 240px;
+			    height: 100%;
+			    padding: 0px 20px;
+			    background-color: #212121;
+			    /*max-height: 800px;*/
+			    
+			}
+			.outer-container {
+			    position: relative;
+			    overflow: hidden;
+			}
+			.inner-container {
+			    position: absolute; left: 0;
+			    overflow-x: hidden;
+			    overflow-y: scroll;
+			}
+			
+			 /* for Chrome */
+			.inner-container::-webkit-scrollbar {
+			    display: none;
+			}
+			.nav-inner-posileft{
+				margin-left: -20px;
+				border-bottom: 1px dashed #BDBDBD;
+			}
+			.nav-inner-input{
+				border: 0px;
+			    width: 130px;
+			    margin-right: 10px;
+			    margin-top: -4px;
+			    background-color: #212121;
+			    cursor: pointer;
+			    font-size: 20px;
+			    color: #FAFAFA;
+			    outline-color: #FAFAFA;
+			}
+			.inputbg{
+				background-color: #FF5722;
+				width: 125px;
+			}
+			i.fa-align-justify{
+				font-size: 20px;
+				padding-right: 10px;
+			}
+			i.fa-paperclip{
+				font-size: 20px;
+				padding-right: 18px;
+			}
+			
+			i.fa-link{
+				font-size: 18px;
+				padding-right: 18px;
+				padding-left: 0px;
+			}
+			i.fa-edit{
+				font-size: 18px;
+				display: inline-block;
+			}
+			i.fa-close{
+				font-size: 18px;
+				margin-left: 10px;
+			}
+			
+			.addLi{
+				text-align: center;
+			    font-size: 20px;
+			    background-color: #212121;
+			    border: 1px dashed;
+			    cursor: pointer;
+			    margin-right: 18px;
+			    margin-top: 20px;
+			    position: fixed;
+			    bottom: 10px;
+			    height: 30px;
+			    line-height: 30px;
+			    width: 210px;
+			    margin-left: 20px;
+			}
+			
+			.toggleShow{
+				width: 40px;
+				height: 30px;
+				overflow: hidden;
+				border-radius: 4px 0 0 4px;
+			}
+			
+			.moveMenu{
+				position: relative;
+			    left: -10px;
+			    top: -16px;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="css/font-awesome-4.7.0/css/font-awesome.css"/>
+	</head>
+	<body>
+		<div class = "nav-side">
+			<div><p class="nav-tit"><i class="fa fa-align-justify"></i> <input type="text" value="Root" disabled="disabled" class="nav-inner-input inputbg"/><i class="fa fa-edit"></i><i class="fa fa-close"></i></p></div>
+			
+			<div class="outer-container">
+			     <div class="inner-container">
+			        <div class="content">
+						<ul class="nav-side-ul">
+							<li>
+								<div class="nav-inner-posileft">
+									<p class="nav-inner-tit"><i class="fa fa-paperclip"></i><input type="text" value="way1" disabled="disabled" class="nav-inner-input"/><i class="fa fa-edit"></i><i class="fa fa-close"></i></p>
+							    </div>
+								<ul class="nav-side-inner-ul">
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1name1name1name1name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+								</ul>
+							</li>
+							
+							<li>
+								<div class="nav-inner-posileft">
+									<p class="nav-inner-tit"><i class="fa fa-paperclip"></i><input type="text" value="way1" disabled="disabled" class="nav-inner-input"/><i class="fa fa-edit"></i><i class="fa fa-close"></i></p>
+							    </div>
+								<ul class="nav-side-inner-ul">
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1name1name1name1name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+								</ul>
+							</li>
+							<li>
+								<div class="nav-inner-posileft">
+									<p class="nav-inner-tit"><i class="fa fa-paperclip"></i><input type="text" value="way1" disabled="disabled" class="nav-inner-input"/><i class="fa fa-edit"></i><i class="fa fa-close"></i></p>
+							    </div>
+								<ul class="nav-side-inner-ul">
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1name1name1name1name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+								</ul>
+							</li>
+							<li>
+								<div class="nav-inner-posileft">
+									<p class="nav-inner-tit"><i class="fa fa-paperclip"></i><input type="text" value="way1" disabled="disabled" class="nav-inner-input"/><i class="fa fa-edit"></i><i class="fa fa-close"></i></p>
+							    </div>
+								<ul class="nav-side-inner-ul">
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1name1name1name1name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+								</ul>
+							</li>
+							<li>
+								<div class="nav-inner-posileft">
+									<p class="nav-inner-tit"><i class="fa fa-paperclip"></i><input type="text" value="way1" disabled="disabled" class="nav-inner-input"/><i class="fa fa-edit"></i><i class="fa fa-close"></i></p>
+							    </div>
+								<ul class="nav-side-inner-ul">
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1name1name1name1name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+								</ul>
+							</li>
+							<li>
+								<div class="nav-inner-posileft">
+									<p class="nav-inner-tit"><i class="fa fa-paperclip"></i><input type="text" value="way1" disabled="disabled" class="nav-inner-input"/><i class="fa fa-edit"></i><i class="fa fa-close"></i></p>
+							    </div>
+								<ul class="nav-side-inner-ul">
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1name1name1name1name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+								</ul>
+							</li>
+							<li>
+								<div class="nav-inner-posileft">
+									<p class="nav-inner-tit"><i class="fa fa-paperclip"></i><input type="text" value="way1" disabled="disabled" class="nav-inner-input"/><i class="fa fa-edit"></i><i class="fa fa-close"></i></p>
+							    </div>
+								<ul class="nav-side-inner-ul">
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1name1name1name1name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+									<li class="nav-inner-item"><i class="fa fa-link"></i>name1</li>
+								</ul>
+							</li>
+							
+							
+						</ul>
+						
+			        </div>
+			    </div>
+		    </div>
+		
+			<div class="addLi">
+				<i class="fa fa-plus"></i>
+			</div>
+			
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+		var editFlag=true;
+		var height = $(window).height()-62-115;
+		$(function(){
+			bindEvent();
+			$("div.content").css("max-height",height+"px");
+			
+		});
+		
+		function bindEvent(){
+			$("i.fa-align-justify").click(function(){
+				$("div.nav-side").toggleClass("toggleShow");
+				$("div.outer-container").slideToggle("fast");
+				$("i.fa-align-justify").toggleClass("moveMenu");
+			})
+			
+			$("p.nav-inner-tit").click(function(event){
+				event.preventDefault();
+				$(this).parent().parent().find("ul.nav-side-inner-ul").slideToggle("fast");
+			})
+			
+			$("i.fa-edit").click(function(event){
+				event.stopPropagation();
+				if(editFlag){
+					editFlag=false;
+					$(this).prev().removeAttr("disabled").focus();
+					$(this).css("color","#ff7043");
+				}else{
+					if($(this).prev().val() != ""){
+						editFlag=true;
+						$(this).prev().attr("disabled","disabled");
+						$(this).css("color","#cecece");
+					}
+				}
+				
+			})
+		}
+	</script>
+</html>

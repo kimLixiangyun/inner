@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			html,
+			body,
+			ul,
+			p {
+				padding: 0px;
+				margin: 0px;
+				height: 100%;
+			}
+			
+			.nav {
+				position: fixed;
+				right: 0px;
+				top: 0px;
+				height: 100%;
+				background-color: #333333;
+				width: 220px;
+			}
+			
+			.nav-ul>li {
+				background-color: #808080;
+				list-style: none;
+				padding: 10px 0;
+			}
+			
+			.nav-ul-ul {}
+			
+			.nav-ul-ul>li {
+				list-style: none;
+				background-color: #5F9EA0;
+				border: 1px solid white;
+			}
+			
+			.table-data {
+				width: 60%;
+				height: 300px;
+			}
+			
+			.isSelect {
+				background-color: #B94A48;
+			}
+		</style>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+
+	<body>
+		<div>
+			<div class="nav">
+				<ul class="nav-ul">
+					<li>根目录</li>
+					<li>
+						<p>POST</p>
+						<ul class="nav-ul-ul">
+						</ul>
+					</li>
+				</ul>
+			</div>
+
+			<div class="dataTable">
+				<table border="" cellspacing="" cellpadding="" class="table-data">
+					<thead>
+						<tr>
+							<th>Header</th>
+							<th>Header2</th>
+							<th>Header3</th>
+							<th>Header4</th>
+							<th>Header5</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr id="tr1">
+							<td>Dataa</td>
+							<td>Data2</td>
+							<td>Data3</td>
+							<td>Data4</td>
+							<td>Data5</td>
+						</tr>
+						<tr id="tr2">
+							<td>Datab</td>
+							<td>Data2</td>
+							<td>Data3</td>
+							<td>Data4</td>
+							<td>Data5</td>
+						</tr>
+
+					</tbody>
+
+				</table>
+			</div>
+
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(function() {
+			bindEvent();
+		})
+
+		function bindEvent() {
+			//添加是否选择的样式
+			$("table.table-data").on("click", "tr", function() {
+				$(this).toggleClass("isSelect");
+
+				if($(this).hasClass("isSelect")) {
+					$(this).attr("draggable", true);
+				}else{
+					$(this).removeAttr("draggable");
+				}
+			})
+
+			//表格拖动到目录树
+			$("table.table-data>tbody>tr").each(function(index, val) {
+				val.ondragstart = function(event) {
+					//获取当前选中的行
+					var value = getSelectData();
+					event.dataTransfer.setData("key", value);
+				}
+			})
+
+			$("ul.nav-ul li").each(function(index, val) {
+				val.ondragover = function(event) {
+					event.preventDefault();
+				};
+
+				val.ondrop = function(event) {
+					var data = event.dataTransfer.getData("key");
+					$this = $(this);
+					putHtml($this, data);
+				}
+			})
+			
+//
+//			$("ul.nav-ul-ul").each(function() {
+//				$(this).on("click", "li", function() {
+//					console.log(2)
+//					$(this).toggleClass("isSelect");
+//					if($(this).hasClass("isSelect")) {
+//						$(this).attr("draggable", true);
+//					}
+//				})
+//				
+//				$(this).ondragstart = function(event) {
+//					var value = getTreeData();
+//					event.dataTransfer.setData("isKey", value);
+//				}
+//			})
+			
+
+		}
+
+		//获取选中的数据
+		function getSelectData() {
+			var value = "";
+			var len = $("table.table-data>tbody>tr.isSelect").length;
+			$("table.table-data>tbody>tr").each(function(index) {
+				if($(this).hasClass("isSelect")) {
+					if(index == len - 1) {
+						value += $(this).find("td:first-child").text();
+					} else {
+						value += $(this).find("td:first-child").text() + ";";
+					}
+				}
+			})
+
+			return value;
+
+		}
+
+		//格式化选中的数据
+		function putHtml($this, data) {
+			var arrs = [];
+			console.log(data);
+			arrs = data.split(";");
+			
+			$this.find("ul.nav-ul-ul>li").each(function() {
+			
+				arrs.push($(this).text());
+			})
+			
+			console.log(arrs);
+			
+			arrs = arrs.uniqueArr();
+			
+			var tpl = "";
+			for(var i = 0; i < arrs.length; i++) {
+				if("" != arrs[i]) {
+					tpl += "<li>" + arrs[i] + "</li>";
+				}
+
+			}
+			
+			if($(".nav-ul>li:first-child").find(".nav-ul-ul").html()) {
+				$this.find("ul.nav-ul-ul").empty().append(tpl);
+			} else {
+				tpl = "<ul class='nav-ul-ul'>" + tpl + "</ul>";
+				$this.append(tpl);
+			}
+
+		}
+
+		//数组去重
+		Array.prototype.uniqueArr = function() {
+			debugger;
+			var res = [];
+			var json = {};
+			for(var i = 0; i < this.length; i++) {
+				if(!json[this[i]]) {
+					res.push(this[i]);
+					json[this[i]] = 1;
+				}
+			}
+			return res;
+		}
+
+		//获取树中的数据
+		function getTreeData() {
+
+		}
+	</script>
+
+</html>

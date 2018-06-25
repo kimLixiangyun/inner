@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>轮播图</title>
+		<style>
+			.box {
+				width: 1000px;
+				height: 600px;
+				overflow: hidden;
+				position: relative;
+				left: 100px;
+			}
+			
+			.inner-box {
+				width: 4000px;
+				height: 600px;
+				position: relative;
+				transition: left 0.5s ease-in-out;
+			}
+			
+			a {
+				display: inline-block;
+				width: 1000px;
+				height: 600px;
+				overflow: hidden;
+				float: left;
+			}
+			
+			#btnl {
+				position: absolute;
+				left: 10px;
+				top: 290px;
+				text-align: center;
+				line-height: 35px;
+				font-size: 25px;
+			}
+			
+			#btnl::before {
+				content: '<';
+				display: inline-block;
+				width: 35px;
+				height: 35px;
+				border-radius: 50%;
+				background: #fff;
+			}
+			
+			#btnr {
+				position: absolute;
+				right: 10px;
+				top: 290px;
+				text-align: center;
+				line-height: 35px;
+				font-size: 25px;
+			}
+			
+			#btnr::before {
+				content: '>';
+				display: inline-block;
+				width: 35px;
+				height: 35px;
+				border-radius: 50%;
+				background: #fff;
+			}
+			/*.doMove{
+				-webkit-animation:moveto 0.5s  forwards;
+			}*/
+			/*@-webkit-keyframes moveto{
+				from{left:0}
+				to{left:-1000px}
+			}*/
+			
+			#cir {
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 20px;
+				text-align: center;
+			}
+			
+			#cir ul {
+				list-style: none;
+				display: inline-block;
+				padding: 0;
+			}
+			
+			#cir ul li {
+				width: 10px;
+				height: 10px;
+				background-color: #fff;
+				border-radius: 50%;
+				float: left;
+				margin: 0 5px;
+			}
+			
+			.bg {
+				background-color: #000!important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<div class='box'>
+				<div class="inner-box" style="left: 0;">
+					<a href="#"><img src="img/1.jpg" /></a>
+					<a href="#"><img src="img/2.jpg" /></a>
+					<a href="#"><img src="img/3.jpg" /></a>
+					<a href="#"><img src="img/4.jpg" /></a>
+				</div>
+				<div id='btnl'></div>
+				<div id='btnr'></div>
+				<div id='cir'>
+					<ul>
+						<li class="bg"></li>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+	</body>
+	<script type="text/javascript">
+		var btnl = document.getElementById('btnl');
+		var btnr = document.getElementById('btnr');
+		var innerBox = document.getElementsByClassName('inner-box')[0];
+		var cirs = document.getElementsByTagName('li');
+		var count = 0;
+		btnr.onclick = function() {
+			if(count==3){
+				count=-1;
+			}
+			if(count < 3) {
+				count++;
+				innerBox.style.left = count * -1000 + 'px';
+				for(var i = 0; i < 4; i++) {
+					cirs[i].className = '';
+				}
+				cirs[count].className = 'bg';
+				if(count>=3){
+					count=-1;
+				}
+			}
+
+		}
+		btnl.onclick = function() {
+			
+			if(count==0){
+				count=4;
+			}
+			if(count > -1) {
+				count--;
+				innerBox.style.left = count * -1000 + 'px';
+				for(var i = 0; i < 4; i++) {
+					cirs[i].className = '';
+				}
+				cirs[count].className = 'bg';
+				if(count<=0){
+					count=4;
+				}
+			}
+			console.log(count)
+		}
+		
+		setInterval(function(){
+			count++;
+			innerBox.style.left = count * -1000 + 'px';
+				for(var i = 0; i < 4; i++) {
+					cirs[i].className = '';
+				}
+				cirs[count].className = 'bg';
+				if(count<=0){
+					count=4;
+				}
+				if(count>=3){
+					count=1;
+				}
+				console.log(count)
+		},1000)
+
+	</script>
+
+</html>

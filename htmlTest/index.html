@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>图片垂直居中的几种方式</title>
+		<style>
+			.box {
+				width:200px;
+				height: 200px;
+				border: 1px solid #ccc;
+				position: relative;
+			}
+			
+			.center {
+				width: 100px;
+				height: 100px;
+				background: gray;
+				margin: auto;
+				position: absolute;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+			}
+			
+			.box2 {
+				width: 350px;
+				height: 350px;
+				border: 1px solid #F22727;
+				text-align: center;
+			}
+			
+			.center2 {
+				
+				vertical-align: middle;
+			}
+			
+			.block {
+				line-height: 350px;
+			}
+			/*跟父级一样高*/
+			
+			.box3 {
+				width: 350px;
+				height: 350px;
+				border: 1px solid #F22727;
+				display: table;
+				text-align: center;
+			}
+			
+			.center3 {
+				display: table-cell;
+				vertical-align: middle;
+			}
+			
+			.box4 {
+				width: 300px;
+				height: 300px;
+				border: 1px solid #F22727;
+			}
+			
+			.center4 {
+				width: 200px;
+				height: 200px;
+				position: relative;
+				left: 20%;
+				top: 20%;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		第1种，居中效果
+		<div class="box">
+			<div class="center">居中效果</div>
+		</div>
+		
+		第2种 图片居中
+
+		<div class="box2">
+			<img class="center2" src="img/x1.jpg" alt="" width="50px" height="50px" />
+			<span class="block"></span>
+		</div>
+		/*第2种 图片垂直居中*/ /* span是辅助元素 vertical-align这个属性的特点,它是相对兄弟级行高（line-height）来定位*/ 第3种，居中效果 父元素使用display: table; 子元素display: table-cell;
+
+		<div class="box3">
+			<span class="center3"><img src="img/x1.jpg" alt="" width="50px" height="50px" alt=""/></span>
+		</div>
+		/*第3种，居中效果*/ 第4种，居中效果
+		<div class="box4">
+			<img class="center4" src="img/x1.jpg" alt="" width="50px" height="50px" alt="" />
+		</div>
+		/*第4种，居中效果 根据父元素来计算*/
+		
+		<a onclick="getWindowHrefPram()">获取浏览器地址参数</a>
+		<script type="text/javascript">
+			function getWindowHrefPram(){
+				//http://www.runoob.com/jquery/misc-trim.html?channelid=12333&name=xiaoming&age=23
+//				var whref=window.location.href;
+var whref='http://www.runoob.com/jquery/misc-trim.html?channelid=12333&name=xiaoming&age=23';
+				//以问号切分
+				var arr1=whref.split('?');
+				if(arr1==whref){
+					return '';
+				}
+				var arrobj={};
+				var arr2=arr1[1].split('&');
+				for(var i=0;i<arr2.length;i++){
+					var arr=arr2[i].split('=');
+					arrobj[arr[0]]=arr[1];
+				}
+				console.log(arrobj);
+			}
+			
+//			var count=10;   //全局作用域 标记为flag1
+//function add(){
+//  var count=0;    //函数全局作用域 标记为flag2
+//  return function(){
+//      count+=1;   //函数的内部作用域
+//      alert(count);
+//  }
+//}
+//var s = add()
+//s();//输出1
+//s();//输出2
+
+//function isString(str){
+//	if(typeof str==='String'||str.constructor===String){
+//	
+//	}
+//}
+
+		</script>
+
+</html>

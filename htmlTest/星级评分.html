@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>星级评分</title>
+		<style>
+			body,
+			ul,
+			li {
+				margin: 0;
+				padding: 0;
+			}
+			
+			li {
+				list-style-type: none;
+			}
+			
+			#five {
+				width: 130px;
+				height: 26px;
+				margin: 100px auto;
+			}
+			
+			.five-item {
+				width: 26px;
+				height: 26px;
+				background: url(img/five.png) no-repeat;
+				float: left;
+			}
+		</style>
+	</head>
+
+	<body>
+		<ul id="five">
+			<li class="five-item" title="很不好"></li>
+			<li class="five-item" title="不好"></li>
+			<li class="five-item" title="一般"></li>
+			<li class="five-item" titlt='好'></li>
+			<li class="five-item" title="很好"></li>
+		</ul>
+		<script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var rating = (function() {
+				//点亮星星
+				var lightFive = function($fiveitem,num) {
+					$fiveitem.each(function(index) {
+						if(index < num) {
+							$(this).css('background-position-y', '0');
+						} else {
+							$(this).css('background-position-y', '-26px');
+						}
+					})
+				}
+				var init = function(ele, num) {
+					var num = num;
+					var $five = $(ele);
+					var $fiveitem = $five.find('.five-item');
+					lightFive($fiveitem,num);
+					$five.on('click','.five-item', function() {
+						num = $(this).index() + 1;
+						lightFive($fiveitem,$(this).index() + 1);
+					}).on('mouseover','.five-item', function() {
+						lightFive($fiveitem,$(this).index() + 1);
+					}).on('mouseout', function() {
+						lightFive($fiveitem,num);
+					})
+				}
+				//变为jquery插件
+				$.fn.extend({
+					rating:function(num){
+						return this.each(function(){
+							init(this,num);
+						})
+					}
+				})
+
+				return {
+					init: init
+				}
+			}())
+			$('#five').rating(4);
+		</script>
+	</body>
+
+</html>

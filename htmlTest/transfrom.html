@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<img src="img/timg.jpg" id="img1" width="500px" height="500px"/>
+		<button onclick="doso()" type="button"> dasfds</button>
+	</body>
+	<script type="text/javascript">
+		var img1=document.getElementById("img1");
+//		img1.addEventListener('mouseenter',doso());
+		function doso(){
+			img1.style.transition='1s';
+			img1.style.transform='rotate(x,y,0,180deg)';
+		}
+		
+	</script>
+</html>

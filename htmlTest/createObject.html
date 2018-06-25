@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>创建对象的几种方式及继承</title>
+	</head>
+
+	<body>
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+	</body>
+	<script type="text/javascript">
+		//		(function test(){
+		//			console.log('hhheh');
+		//		}())
+		//		var ul=document.getElementsByTagName('ul')[0];
+		//		ul.onclick=function(e){//利用事件委托（将方法绑定到父元素上，利用捕获到事件源）
+		//			var event=e||window.event;//获取鼠标事件对象
+		//			var target=event.target||event.srcElement;//获取事件源
+		//			console.log(target.innerText);
+		//		}
+
+		//		var lis=document.getElementsByTagName('li');
+		//		for(var i=0;i<lis.length;i++){
+		//			(function(j){
+		//				lis[j].addEventListener('click',function(){
+		//					console.log(j);
+		//				},false)
+		//			}(i))
+		//		}
+		//		document.onmousedown=function(e){
+		//			console.log(e.button)
+		//		}
+
+		//计算字节长度
+		//		function getByteLen(str){
+		//			var count=str.length;
+		//			for(var i=0;i<str.length;i++){
+		//				if(str.charCodeAt(i)>255){
+		//					count++;
+		//				}
+		//			}
+		//			console.log(count);
+		//		}
+		//对象的创建方法
+		//		1.对象字面量/对象直接量plainObject
+		var obj = {
+			name: 'prop'
+		}
+		//		2.构造函数
+		//			1)系统自带构造函数 Object()  
+		var obj = new Object();
+		obj.name = 'adfs';
+		//			2)自定义
+		function Person() {
+			this.name = 'lxy';
+			this.fn = function() {}
+		}
+		var person1 = new Person();
+
+		function Student(name, sex, age) {
+			this.name = name;
+			this.sex = sex;
+			this.age = age;
+		}
+		Student.prototype.teacher = 'MsWang';
+
+		var stu1 = new Student('lxy', '女', '20');
+
+		//原型继承(一些不需要获取的属性也会继承)
+		Grand.prototype.LastName = 'Li';
+
+		function Grand() {}
+		Fater.prototype = Grand;
+
+		function Fater() {}
+		Son.prototype = Father;
+
+		function son() {}
+
+		var son = new Son(); //可以获取son.LastName
+		//借用构造函数继承（会执行多个函数）
+		function Person(name, age, sex) {
+			this.name = name;
+			this.age = age;
+			this.sex = sex;
+		}
+
+		function Student(name, age, sex, grad) {
+			Person.call(this, name, age, sex);
+			this.grad = grad;
+		}
+
+		var stusent = new Student('xy', '12', '1', '98'); //可以获取student
+
+		//共享原型（共享的属性不能被单方重写，会影响其他）
+		Fater.prototype.LastName = 'li';
+
+		function Fater() {}
+
+		function Son() {}
+		son.prototype = Fater.prototype;
+
+		var son = new Son(); //可以获取son.LastName
+		var father = new Father();
+		son.prototype.LastName = "Liu"; //这样重写后，father.LastName也会变为Liu
+
+		//圣杯模式（既能继承共有不变的属性，也能定义私有的,但会使一些属性指向紊乱，需要重写）
+		Father.prototype.LastName = "Li";
+
+		function Father() {}
+
+		function FatherToSon() {}
+		FatherToSon.prototype = Father.prototype; //通过一个函数间接传递继承的属性
+		function Son() {}
+		Son.prototype = new FatherToSon();
+		Son.prototype.constructor = Son;
+
+		var son = new Son();
+		son.prototype.LaatName = "Liu"; //father.LastName不会被影响
+
+		//封装的继承(圣杯模式)
+		function inherit(Target, Origin) {
+			function F() {};
+			F.prototype = Origin.prototype; //这行与下行不能交换，不然已经实例了再也不可能改变原型
+			Target.prototype = new F();
+			Target.prototype.constructor = Target; //恢复构造函数指向
+			Target.prototype.uber = Origin.prototype; //存储实际继承自哪里，超类
+		}
+
+		//私有化
+		var inherit = (function(Target,Origin) {
+			var F = function() {}
+			return function(Target,Origin) {
+				F.prototype = Origin.prototype; //这行与下行不能交换，不然已经实例了再也不可能改变原型
+				Target.prototype = new F();
+				Target.prototype.constructor = Target; //恢复构造函数指向
+				Target.prototype.uber = Origin.prototype; //存储实际继承自哪里，超类
+			}
+		}())
+	</script>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang>
+<head>
+<meta charset="UTF-8">
+<title>H5-tuozuai</title>
+
+<script src = "http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<style>
+.dd {}
+.dd li{display:inline-block; padding:5px; margin:5px; border:1px solid red; text-align:center; cursor:move;}
+.dd li img {display:block;}
+
+.dd_over li {min-height:200px; margin:15px; border:1px dashed #ddd;}
+
+.outer-container,.content {
+    width: 200px; height: 200px;
+}
+.outer-container {
+    position: relative;
+    overflow: hidden;
+}
+.inner-container {
+    position: absolute; left: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+ /* for Chrome */
+.inner-container::-webkit-scrollbar {
+    display: none;
+}
+</style>
+</head>
+<body>
+
+    <ul class="dd">
+        <li><img src="https://www.baidu.com/img/baidu_jgylogo3.gif">abc</li>
+        <li><img src="https://www.baidu.com/img/baidu_jgylogo3.gif">123</li>
+        <li><img src="https://www.baidu.com/img/baidu_jgylogo3.gif">678</li>
+    </ul>
+    <ul class="dd_over">
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    
+    <div class="outer-container">
+     <div class="inner-container">
+        <div class="content">
+           
+        </div>
+     </div>
+ </div>
+
+
+    <script>
+
+        var dd = $(".dd li");
+        var dd_over = $(".dd_over li");
+        
+        //把被拖动的元素进行循环，并进行setData
+        dd.each(function(index,val){
+        　　val.ondragstart = function(event){//拖拽刚开始时
+        　　        event.dataTransfer.setData("key", $(val).html());//用key作为被移动的数据
+              console.log("start begin");
+          };
+        });
+        
+        //设置DIV可接收
+        dd_over.each(function(index,val){
+            val.ondragover = function(event){
+                event.preventDefault();
+                console.log("o");
+            };
+        });
+        
+        // 将被拖动元素放入DIV
+        dd_over.each(function(index,val){
+            val.ondrop = function(event){
+                var key = event.dataTransfer.getData("key");
+                var html = $("<span style='border:solid 1px #f60; padding:5px; margin:5px;'>"+key+"</span>")
+                //var html = $("<span style='border:solid 1px #f60; padding:5px; margin:5px;'>aa</span>")
+                $(this).append(html);
+                console.log("stop" + index);
+            };
+        });
+
+    </script>
+</body>
+</html>

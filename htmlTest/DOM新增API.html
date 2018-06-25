@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body> 
+		<h3>DOM API之before()</h3>
+		<h6>兼容性：before() API Chrome54+，Firefox49+</h6>
+		<img id="img" src="img/x1.jpg"/>
+		<script type="text/javascript">
+//+++++++@before()方法支持多个参数，并且参数可以是节点对象，也可以是字符串对象。
+//			document.getElementById('img').before('测试中');
+//+++++++@与before()类似的方法getElementById(插入位置，插入的html标签语句)，兼容性更高			
+			document.getElementById('img').insertAdjacentHTML('afterEnd', '<strong>美女：</strong>');
+//			insertAdjacentHTML插入位置有四种值可用：
+//			1.     beforeBegin: 插入到标签开始前
+//			2.     afterBegin:插入到标签开始标记之后
+//			3.     beforeEnd:插入到标签结束标记前
+//			4.     afterEnd:插入到标签结束标记后
+		</script>
+		
+		<h3>DOM API之before()</h3>
+	</body>
+</html>

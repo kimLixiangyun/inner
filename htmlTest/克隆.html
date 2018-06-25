@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>深度克隆</title>
+	</head>
+	<body>
+		
+	</body>
+	<!--//遍历对象for(var prop in obj)
+	//1.判断是不是原始值(typeof obj)
+	//2.判断是数组还是对象(instanceof constructor obj.prototype.toString.call(obj))
+	//3.建立相应的数组或对象-->
+	<script type="text/javascript">
+//		var obj={
+//			name:'he',
+//			sex:'1',
+//			wife:{
+//				name:"hehhe",
+//				son:{
+//					name:'rru'
+//				}
+//			}
+//		}
+//		var obj1={};
+//		function deepClone(origin,target){
+//			var target=target||{};
+//			var toStr=Object.prototype.toString;
+//			var arrStr="[Object Array]";
+//			for(var prop in origin){
+//				if(origin.hasOwnProperty(prop)){//自有属性或方法
+//					if(origin[prop]!==null&&typeof(origin[prop])=='object'){
+//						if(toStr.call(origin[prop])==arrStr){
+//							target[prop]=[];
+//						}else{
+//							target[prop]={};
+//						}
+//						deepClone(origin[prop],target[prop]);
+//					}else{
+//						target[prop]=origin[prop];
+//					}
+//				}
+//			}
+//			return target;
+//		}
+		
+		//数组的sort是对asc码排序，不能很好排，可以在里面加方法去自定义怎么排序
+//		var arr=[5,-2,7,4,5,10];
+		//1.必须写2个形参
+		//2.看返回值，当返回值为负数时，那么前面的数放在前面，为正，后面的数在前，为0，不动
+//		arr.sort(function(a,b){
+//			return a.length-b.length;
+//		})
+//		
+		//push方法实现
+//		Arry.prototype.push=function(target){
+//			obj[obj.length]=target;
+//			obj.length++;
+//		}
+//		
+		
+		//类数组(可以定义后和数组一样，但是，又拥有对象的特性)
+//		var objArr={
+//			'2':'a',
+//			'3':'b',
+//			'length':2,
+//			'push':Array.prototype.push
+//		}
+//		
+//		objArr.push('c');//会找到对象的length属性然后作为属性去查找，然后length++;所以这里会将a变为c
+		
+		
+		
+		
+		//封装typeof
+		
+		function type(target){
+			var str=Object.prototype.toString.call(target);
+			var template={
+				'[object String]':'object-string',
+				'[object Number]':'object-number',
+				'[object Boolean]':'object-boolean',
+				'[object Array]':'array',
+				'[object Object]':'object'
+			}
+			if(target==null) return 'null';
+			if(typeof(target)=='object'){
+				return template[str];
+			}else{
+				return typeof(target);
+			}
+		}
+		
+		//数组去重
+		
+	</script>
+</html>
